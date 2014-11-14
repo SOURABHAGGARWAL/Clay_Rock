@@ -1,0 +1,3 @@
+1. Build using maven install.
+2. Copy Xebia_Hrims.war from target folder and paste it into Webapp directory of server.
+3. Start server.
