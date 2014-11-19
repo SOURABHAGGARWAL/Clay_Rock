@@ -98,8 +98,7 @@
 					</div>
 
 					<ul class="nav navbar-nav navbar-left">
-						<button type="submit" class="btn" margin="left">Upload
-							Resume</button>
+						<button type="submit" class="btn">Upload Resume</button>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<button type="submit" class="btn" margin="right">Save</button>

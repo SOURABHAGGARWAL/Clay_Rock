@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.xebia.hrims.model.login.Login;
 
 public class Application {
 	
@@ -50,6 +55,43 @@ public class Application {
 			paramList.add(param.trim());
 		}
 		return paramList;
+	}
+	
+	public static boolean isValidSession(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession(true);
+		if(session == null){
+			return false;
+		}else{
+			if(session.getAttribute("login") == null){
+				return false;
+			}else {
+				return true;
+			}
+		}
+	}
+	
+	public static Login getLoginFromSession(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession(true);
+		if(session == null){
+			return new Login();
+		}else{
+			if(session.getAttribute("login") == null){
+				return new Login();
+			}else {
+				Login login = (Login) session.getAttribute("login");
+				return login;
+			}
+		}
+	}
+	
+	public static void setSession(HttpServletRequest request, HttpServletResponse response, Login login){
+	    HttpSession session = request.getSession();
+	    session.setAttribute("login", login);
+	    //setting session to expiry in 30 mins
+	    session.setMaxInactiveInterval(30*60);
+	    Cookie cookie = new Cookie("userID", login.getEmp_id());
+	    cookie.setMaxAge(30*60);
+	    response.addCookie(cookie);
 	}
 	
 }

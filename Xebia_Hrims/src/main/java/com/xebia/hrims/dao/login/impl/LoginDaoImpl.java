@@ -1,7 +1,5 @@
 package com.xebia.hrims.dao.login.impl;
 
-import java.util.List;
-
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +15,16 @@ public class LoginDaoImpl extends DAOImpl<Login> implements ILoginDao{
 	  }
 
 	  @Override
-	  @SuppressWarnings("unchecked")
-	  public List<Login> getLogin(String userID, String password) {
+	  public Login getLogin(String userID, String password) {
 	    Query query = sessionFactory.getCurrentSession().createQuery("from com.xebia.hrims.model.login.Login where emp_id = :emp_id and password = :password and active = :active");
 	    query.setParameter("emp_id", userID);
 	    query.setParameter("password", password);
 	    query.setParameter("active", true);
-	    return query.list();
+	    if(query.list().size()>=1){
+	    	return (Login) query.list().get(0);
+	    }else{
+	    	return null;
+	    }
+	    
 	  }
 }

@@ -7,14 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xebia.hrims.utils.Application;
+
 @Controller
 @RequestMapping("/organisation")
 public class OrganisationHRIMSController {
 
 	@RequestMapping(value = "policies")
 	public ModelAndView policies(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView dashboard = new ModelAndView("organisation/policies");
-		return dashboard;	
+		if(Application.isValidSession(request, response)){
+			ModelAndView policies = new ModelAndView("organisation/policies");
+			return policies;			
+		}else {
+			ModelAndView login = new ModelAndView("login");
+			return login;
+		}
 	}
 	
 }

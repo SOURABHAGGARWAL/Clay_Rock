@@ -13,7 +13,7 @@
 		<div style="vertical-align: top; margin: 10px 10px 10px 10px;">
 			<img width="200px;" height="50px;" src="<%=request.getContextPath()%>/images/logo_xebia.jpg">
 		</div>
-		<form id="login" name="login" action="login.xebia" method="post" style="max-width: 360px; margin: 0px auto;">
+		<form id="login" name="login" action="<%=request.getContextPath()%>/login.xebia" method="post" style="max-width: 360px; margin: 0px auto;">
 			<input type="text" name="userID" id="userID" class="form-control" placeholder="Emp ID" required autofocus> 
 			<br>
 			<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
