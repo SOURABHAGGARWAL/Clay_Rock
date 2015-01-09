@@ -1,6 +1,9 @@
 package com.xebia.hrims.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -12,6 +15,9 @@ import javax.servlet.http.HttpSession;
 import com.xebia.hrims.model.login.Login;
 
 public class Application {
+	
+	
+	public static final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 	
 	/**
 	 * @param request
@@ -92,6 +98,29 @@ public class Application {
 	    Cookie cookie = new Cookie("userID", login.getEmp_id());
 	    cookie.setMaxAge(30*60);
 	    response.addCookie(cookie);
+	}
+	
+	
+	public static Date getFormattedDateFromString(String dateInString){
+		try {
+			Date date = formatter.parse(dateInString);
+			System.out.println(date);
+			System.out.println(formatter.format(date));
+			return date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static Integer getIntegerFromString(String intString){
+		try {
+			Integer integer = Integer.parseInt(intString);
+			return integer;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

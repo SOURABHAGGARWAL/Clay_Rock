@@ -3,6 +3,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="<%=request.getContextPath()%>/js/jQuery/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/bootstrap/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jQuery/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jQuery/jquery-ui.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap/bootstrap-theme.min.css">
 

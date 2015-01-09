@@ -46,7 +46,7 @@ public class Leave implements Serializable {
 	private String notifyTo;
 
 	@Column(name = "status_of_leave")
-	private String statusOfLeave;
+	private Integer statusOfLeave;
 
 	public Integer getId() {
 		return id;
@@ -120,11 +120,11 @@ public class Leave implements Serializable {
 		this.notifyTo = notifyTo;
 	}
 
-	public String getStatusOfLeave() {
+	public Integer getStatusOfLeave() {
 		return statusOfLeave;
 	}
 
-	public void setStatusOfLeave(String statusOfLeave) {
+	public void setStatusOfLeave(Integer statusOfLeave) {
 		this.statusOfLeave = statusOfLeave;
 	}
 	

@@ -5,9 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xebia.hrims.utils.Application;
+import com.xebia.hrims.utils.ServiceResponse;
 
 @Controller
 @RequestMapping("/hr")
@@ -22,6 +24,17 @@ public class HrHRIMSController {
 			ModelAndView login = new ModelAndView("login");
 			return login;
 		}
+	}
+	
+	@RequestMapping(value = "getAllEmployee")
+	public @ResponseBody ServiceResponse getAllEmployee(HttpServletRequest request, HttpServletResponse response) {
+/*		if(Application.isValidSession(request, response)){
+			ModelAndView createNewEmployee = new ModelAndView("hr/create_new_employee");
+			return createNewEmployee;		
+		}else {*/
+			ModelAndView login = new ModelAndView("login");
+			return null;
+		/*}*/
 	}
 	
 	@RequestMapping(value = "leaveRequests")

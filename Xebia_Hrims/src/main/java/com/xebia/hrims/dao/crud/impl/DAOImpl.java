@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 import com.xebia.hrims.dao.crud.IDAO;
+import com.xebia.hrims.exception.HrimsException;
 
 @Transactional
 @SuppressWarnings("unchecked")
