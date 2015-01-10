@@ -43,5 +43,8 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-core-asl-1.9.10.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-mapper-asl-1.9.10.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json-20141113.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

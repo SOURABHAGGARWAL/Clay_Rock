@@ -24,7 +24,7 @@
 				<ul role="menu" class="dropdown-menu">
 					<li><a href="<%=request.getContextPath()%>/lms/applyLeave.xebia">Apply Leave</a></li>
 					<li><a href="<%=request.getContextPath()%>/lms/cancelLeave.xebia">Cancel Leave</a></li>
-					<li><a href="<%=request.getContextPath()%>/lms/myLeaveRequest.xebia">My Leave Request</a></li>
+					<li><a href="<%=request.getContextPath()%>/lms/myLeaveRecord.xebia">My Leave Balance</a></li>
 				</ul>
 			</li>
 			<li class="dropdown">

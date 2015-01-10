@@ -1,33 +1,53 @@
 package com.xebia.hrims.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xebia.hrims.model.employee.EmployeeLeaveDetails;
 import com.xebia.hrims.model.leave.Leave;
+import com.xebia.hrims.model.leave.Type;
+import com.xebia.hrims.model.leave.status;
 import com.xebia.hrims.model.login.Login;
+import com.xebia.hrims.service.employee.IEmployeeLeaveService;
+import com.xebia.hrims.service.leave.ILeaveService;
 import com.xebia.hrims.utils.Application;
 
 @Controller
 @RequestMapping("/lms")
 public class LmsHRIMSController {
+	
+	@Autowired
+	private ILeaveService leaveService;
+	
+	@Autowired
+	private IEmployeeLeaveService employeeLeaveService;
 
 	@RequestMapping(value = "applyLeave")
 	public ModelAndView applyLeave(HttpServletRequest request, HttpServletResponse response) {
 		if(Application.isValidSession(request, response)){
+			
 			Login login = Application.getLoginFromSession(request, response);
-				login.getEmp_id();
-			ModelAndView applyLeave = new ModelAndView("leave/apply");
+			
+			List<Type> typeOfLeaves = leaveService.getAllTypeOfLeaves();
+			
+			List<status> leaveStatusList = leaveService.getLeaveStatusList();
+			
+			List<Leave> employeeLeaves = leaveService.getEmployeeLeave(login.getEmp_id());
+			
+			ModelAndView applyLeave = new ModelAndView("leave/apply", "typeOfLeaves", typeOfLeaves);
+			applyLeave.addObject("employeeLeaves", employeeLeaves);
+			applyLeave.addObject("leaveStatusList", leaveStatusList);
+			
 			return applyLeave;		
 		}else {
 			ModelAndView login = new ModelAndView("login");
@@ -41,7 +61,7 @@ public class LmsHRIMSController {
 			
 			Login login = Application.getLoginFromSession(request, response);
 			
-			Leave leave= new Leave();
+			Leave leave = new Leave();
 			
 			if(Application.getFormattedDateFromString(request.getParameter("startDate"))!=null){
 				leave.setStartDate(Application.getFormattedDateFromString(request.getParameter("startDate")));
@@ -55,9 +75,6 @@ public class LmsHRIMSController {
 			if(Application.getIntegerFromString(request.getParameter("typeOfLeave"))!=null){
 				leave.setTypeOfLeave(Application.getIntegerFromString(request.getParameter("typeOfLeave")));
 			}
-			if(Application.getIntegerFromString(request.getParameter("typeOfLeave"))!=null){
-				leave.setTypeOfLeave(Application.getIntegerFromString(request.getParameter("typeOfLeave")));
-			}
 			if(!StringUtils.isEmpty(request.getParameter("handoverTo"))){
 				leave.setHandoverTo(request.getParameter("handoverTo"));
 			}
@@ -67,11 +84,21 @@ public class LmsHRIMSController {
 			
 			Map<String, String> validateLeave = validateLeave(leave);
 			
+			List<Type> typeOfLeaves = leaveService.getAllTypeOfLeaves();
+			
 			if(validateLeave.get("valid").equalsIgnoreCase("true")){
-				ModelAndView applyLeave = new ModelAndView("leave/apply", "message", "Your leave is successfully applied!!!!");
-				return applyLeave;	
+					if(leaveService.applyLeave(leave)){
+						ModelAndView applyLeave = new ModelAndView("leave/apply", "message", "Your leave is successfully applied!!!!");
+						applyLeave.addObject("typeOfLeaves", typeOfLeaves);
+						return applyLeave;	
+					} else{
+						ModelAndView applyLeave = new ModelAndView("leave/apply", "message", "Error while applying leave contact admin!!!!");
+						applyLeave.addObject("typeOfLeaves", typeOfLeaves);
+						return applyLeave;							
+					}
 			}else{
 				ModelAndView applyLeave = new ModelAndView("leave/apply", "message", validateLeave.get("message"));
+				applyLeave.addObject("typeOfLeaves", typeOfLeaves);
 				return applyLeave;	
 			}
 		}else {
@@ -82,8 +109,20 @@ public class LmsHRIMSController {
 	
 	@RequestMapping(value = "cancelLeave")
 	public ModelAndView cancelLeave(HttpServletRequest request, HttpServletResponse response) {
+		
 		if(Application.isValidSession(request, response)){
-			ModelAndView cancelLeave = new ModelAndView("leave/cancel");
+			Login login = Application.getLoginFromSession(request, response);
+			
+			List<Type> typeOfLeaves = leaveService.getAllTypeOfLeaves();
+			
+			List<status> leaveStatusList = leaveService.getLeaveStatusList();
+			
+			List<Leave> employeeLeaves = leaveService.getEmployeeLeave(login.getEmp_id());
+			
+			ModelAndView cancelLeave = new ModelAndView("leave/cancel", "typeOfLeaves", typeOfLeaves);
+			cancelLeave.addObject("employeeLeaves", employeeLeaves);
+			cancelLeave.addObject("leaveStatusList", leaveStatusList);
+			
 			return cancelLeave;		
 		}else {
 			ModelAndView login = new ModelAndView("login");
@@ -91,11 +130,23 @@ public class LmsHRIMSController {
 		}
 	}
 	
-	@RequestMapping(value = "myLeaveRequest")
+	@RequestMapping(value = "myLeaveRecord")
 	public ModelAndView myLeaveRequest(HttpServletRequest request, HttpServletResponse response) {
 		if(Application.isValidSession(request, response)){
-			ModelAndView myLeaveRequest = new ModelAndView("leave/my_leave_request");
-			return myLeaveRequest;		
+			
+			Login login = Application.getLoginFromSession(request, response);
+			
+			List<Type> typeOfLeaves = leaveService.getAllTypeOfLeaves();
+			
+			List<Leave> leavePendingForApproval = leaveService.getLeavePendingForApproval(login.getEmp_id());
+			
+			List<EmployeeLeaveDetails> employeeLeavesDetail = employeeLeaveService.getEmployeeLeaveDetails(login.getEmp_id());
+			
+			ModelAndView myLeaveRecordResponse = new ModelAndView("leave/my_leave_record", "typeOfLeaves", typeOfLeaves);
+				myLeaveRecordResponse.addObject("employeeLeavesDetail", employeeLeavesDetail);
+				myLeaveRecordResponse.addObject("leavePendingForApproval", leavePendingForApproval);
+				myLeaveRecordResponse.addObject("typeOfLeaves", typeOfLeaves);
+			return myLeaveRecordResponse;		
 		}else {
 			ModelAndView login = new ModelAndView("login");
 			return login;

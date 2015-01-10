@@ -1,10 +1,5 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../global/header.jsp"></jsp:include>
- 	<script>
-	$(function() {
-		$("#startDate").datepicker();
-		$("#endDate").datepicker();
-	});
+	<script>
 	$(document).ready(function() {
 	    $('#employeeLeave').dataTable();
 	} );
@@ -48,12 +43,6 @@
 							${typeOfLeave.getInfo()}
 						</c:if>
 					</c:forEach>
-				</td>
-				<td>
-					<c:if test="${employeeLeave.getStatusOfLeave() eq 2}">
-						<button type="button" class="btn btn-primary" aria-label="Left Align">Edit</button>
-						<button type="button" class="btn btn-primary" aria-label="Left Align">Delete</button>
-					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

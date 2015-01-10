@@ -1,6 +1,7 @@
 package com.xebia.hrims.model.leave;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class Leave implements Serializable {
 	@Column(name = "emp_id", nullable = false, length = 6)
 	private String emp_id;
 
-	@Column(name = "type_of_leave")
+	@Column(name = "type_of_leave", nullable = false)
 	private Integer typeOfLeave;
 
 	@Column(name = "start_date", nullable = false)
@@ -33,7 +34,7 @@ public class Leave implements Serializable {
 	@Column(name = "end_date", nullable = false)
 	private Date endDate;
 
-	@Column(name = "number_of_leaves", nullable = false)
+	@Column(name = "number_of_leaves")
 	private String numberOfLeaves;
 
 	@Column(name = "reason_of_leaves", nullable = false)
@@ -75,6 +76,12 @@ public class Leave implements Serializable {
 	public Date getStartDate() {
 		return startDate;
 	}
+	
+	public String getFormattedStartDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+		String formattedDate = formatter.format(startDate);
+		return formattedDate;
+	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -82,6 +89,12 @@ public class Leave implements Serializable {
 
 	public Date getEndDate() {
 		return endDate;
+	}
+	
+	public String getFormattedEndDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+		String formattedDate = formatter.format(endDate);
+		return formattedDate;
 	}
 
 	public void setEndDate(Date endDate) {
