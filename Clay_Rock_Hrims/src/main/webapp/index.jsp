@@ -1,0 +1,1 @@
+<jsp:forward page="login.clay_rock"></jsp:forward>
