@@ -10,12 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.clay_rock.hrims.model.layout.ClayRockLayout;
+import com.clay_rock.hrims.model.theme.ClayRockTheme;
+
 
 @Entity
 @Table(name = "clay_rock_footer", uniqueConstraints = { @UniqueConstraint(columnNames = { "footer_id" }) })
 public class ClayRockFooter  implements Serializable{
-	
-	private static final long serialVersionUID = 8030656963751773876L;
+
+	private static final long serialVersionUID = 2127741148433457853L;
 
 	@Id
 	@Column(name = "footer_id")
@@ -24,18 +27,18 @@ public class ClayRockFooter  implements Serializable{
 
 	@Column(name = "footer_name", nullable = false)
 	private String footerName;
-
-	@Column(name = "layout_id", nullable = false)
-	private Integer layoutId;
 	
-	@Column(name = "theme_id", nullable = false)
-	private Integer themeId;
+	@Column(name = "footer_desc", nullable = false)
+	private String footerDescription;
+
+	@Column(name = "footer_layout", nullable = false)
+	private ClayRockLayout footerLayout;
+	
+	@Column(name = "footer_theme", nullable = false)
+	private ClayRockTheme footerTheme;
 	
 	@Column(name = "footer_content", nullable = false)
 	private Integer footerContent;
-	
-	@Column(name = "permission_id", nullable = true)
-	private Integer permissionId;
 	
 	@Column(name = "active", nullable = true)
 	private boolean active = false;
@@ -56,20 +59,28 @@ public class ClayRockFooter  implements Serializable{
 		this.footerName = footerName;
 	}
 
-	public Integer getLayoutId() {
-		return layoutId;
+	public String getFooterDescription() {
+		return footerDescription;
 	}
 
-	public void setLayoutId(Integer layoutId) {
-		this.layoutId = layoutId;
+	public void setFooterDescription(String footerDescription) {
+		this.footerDescription = footerDescription;
 	}
 
-	public Integer getThemeId() {
-		return themeId;
+	public ClayRockLayout getFooterLayout() {
+		return footerLayout;
 	}
 
-	public void setThemeId(Integer themeId) {
-		this.themeId = themeId;
+	public void setFooterLayout(ClayRockLayout footerLayout) {
+		this.footerLayout = footerLayout;
+	}
+
+	public ClayRockTheme getFooterTheme() {
+		return footerTheme;
+	}
+
+	public void setFooterTheme(ClayRockTheme footerTheme) {
+		this.footerTheme = footerTheme;
 	}
 
 	public Integer getFooterContent() {
@@ -80,14 +91,6 @@ public class ClayRockFooter  implements Serializable{
 		this.footerContent = footerContent;
 	}
 
-	public Integer getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Integer permissionId) {
-		this.permissionId = permissionId;
-	}
-
 	public boolean isActive() {
 		return active;
 	}
@@ -96,6 +99,4 @@ public class ClayRockFooter  implements Serializable{
 		this.active = active;
 	}
 	
-	
-
 }

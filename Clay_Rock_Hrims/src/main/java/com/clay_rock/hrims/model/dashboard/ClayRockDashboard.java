@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.clay_rock.hrims.model.dashlet.ClayRockDashlet;
+import com.clay_rock.hrims.model.layout.ClayRockLayout;
+import com.clay_rock.hrims.model.role.Role;
+import com.clay_rock.hrims.model.theme.ClayRockTheme;
 
 @Entity
 @Table(name = "clay_rock_org_dashboard", uniqueConstraints = { @UniqueConstraint(columnNames = { "dashboard_id" }) })
@@ -27,20 +30,17 @@ public class ClayRockDashboard  implements Serializable{
 	@Column(name = "dashboard_name", nullable = false)
 	private String dashboardName;
 	
-	@Column(name = "dashboard_title", nullable = false)
-	private String dashboardTitle;
-	
 	@Column(name = "dashboard_dashlets", nullable = false)
 	private List<ClayRockDashlet> dashboardDashlets;
 	
-	@Column(name = "layout_id", nullable = false)
-	private Integer layoutId;
+	@Column(name = "dashboard_theme", nullable = false)
+	private ClayRockTheme dashboardTheme;
 	
-	@Column(name = "theme_id", nullable = false)
-	private Integer themeId;
+	@Column(name = "dashboard_layout", nullable = false)
+	private ClayRockLayout dashboardLayout;
 	
-	@Column(name = "permission_id", nullable = true)
-	private Integer permissionId;
+	@Column(name = "role", nullable = false)
+	private Role role;
 	
 	@Column(name = "active", nullable = true)
 	private boolean active = false;
@@ -61,14 +61,6 @@ public class ClayRockDashboard  implements Serializable{
 		this.dashboardName = dashboardName;
 	}
 
-	public String getDashboardTitle() {
-		return dashboardTitle;
-	}
-
-	public void setDashboardTitle(String dashboardTitle) {
-		this.dashboardTitle = dashboardTitle;
-	}
-
 	public List<ClayRockDashlet> getDashboardDashlets() {
 		return dashboardDashlets;
 	}
@@ -77,28 +69,28 @@ public class ClayRockDashboard  implements Serializable{
 		this.dashboardDashlets = dashboardDashlets;
 	}
 
-	public Integer getLayoutId() {
-		return layoutId;
+	public ClayRockTheme getDashboardTheme() {
+		return dashboardTheme;
 	}
 
-	public void setLayoutId(Integer layoutId) {
-		this.layoutId = layoutId;
+	public void setDashboardTheme(ClayRockTheme dashboardTheme) {
+		this.dashboardTheme = dashboardTheme;
 	}
 
-	public Integer getThemeId() {
-		return themeId;
+	public ClayRockLayout getDashboardLayout() {
+		return dashboardLayout;
 	}
 
-	public void setThemeId(Integer themeId) {
-		this.themeId = themeId;
+	public void setDashboardLayout(ClayRockLayout dashboardLayout) {
+		this.dashboardLayout = dashboardLayout;
 	}
 
-	public Integer getPermissionId() {
-		return permissionId;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setPermissionId(Integer permissionId) {
-		this.permissionId = permissionId;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public boolean isActive() {
@@ -108,6 +100,5 @@ public class ClayRockDashboard  implements Serializable{
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
 
 }
